@@ -26,5 +26,20 @@ public class loginSteps extends CommonMethods {
 		Assert.assertTrue("Logo is not displayed",logo.isDisplayed());
 	  
 	}
+	
+	@When("the user logins with ivalid credentials")
+	public void the_user_logins_with_ivalid_credentials() {
+	   sendText(loginPage.userName,"Wrong");
+	   sendText(loginPage.password,"password");
+	   click(loginPage.submit);
+	}
+	
+	@Then("we verify that a login error occurs")
+	public void we_verify_that_a_login_error_occurs() {
+	    String expected = "Epic sadface: Username and password do not match any user in this service";
+	    String actual = loginPage.errorMessage.getText();
+	    
+	    Assert.assertEquals(expected, actual);
+	}
 
 }

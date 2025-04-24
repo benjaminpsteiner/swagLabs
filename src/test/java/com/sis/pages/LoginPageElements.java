@@ -16,6 +16,9 @@ public class LoginPageElements extends CommonMethods {
 	@FindBy(id="login-button")
 	public WebElement submit;
 	
+	@FindBy(xpath="//h3[@data-test='error']")
+	public WebElement errorMessage;
+	
 	public LoginPageElements() {
 		PageFactory.initElements(driver, this);
 	}
