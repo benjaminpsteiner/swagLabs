@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.sis.utils.CommonMethods;
+import com.sis.utils.ConfigsReader;
 
 public class LoginPageElements extends CommonMethods {
 	@FindBy(id="user-name")
@@ -21,6 +22,12 @@ public class LoginPageElements extends CommonMethods {
 	
 	public LoginPageElements() {
 		PageFactory.initElements(driver, this);
+	}
+	
+	public void standardLogin() {
+		 sendText(loginPage.userName, ConfigsReader.getProperty("username"));
+		 sendText(loginPage.password, ConfigsReader.getProperty("password"));
+		 click(loginPage.submit);
 	}
 
 }
