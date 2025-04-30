@@ -21,8 +21,8 @@ public class CheckoutSteps extends CommonMethods {
 
 	}
 
-	@When("clicks on the checkout button")
-	public void clicks_on_the_checkout_button() {
+	@When("clicks on the cart button")
+	public void clicks_on_the_cart_button() {
 		click(homePage.shoppingCart);
 	}
 
@@ -42,18 +42,49 @@ public class CheckoutSteps extends CommonMethods {
 
 	@Then("we verify the lowest to highest")
 	public void we_verify_the_lowest_to_highest() {
-		List<WebElement> priceElements = (List<WebElement>) driver.findElement(By.className("inventory_item_price"));
+		
+		List<WebElement> priceElements = driver.findElements(By.className("inventory_item_price"));
 		
 		List<Double> prices = new ArrayList<>();
-		for (WebElement el : priceElements) {
-			String priceText = el.getText().replace("$", "");
-			prices.add(Double.parseDouble(priceText));
-		}
 		
+		for (WebElement el : priceElements) {
+		    String priceText = el.getText().replace("$", "");
+		    prices.add(Double.parseDouble(priceText));
+		}
+
+		// Make a copy and sort it
 		List<Double> sortedPrices = new ArrayList<>(prices);
 		Collections.sort(sortedPrices);
-		
+
+		// Assert they match
 		Assert.assertEquals(prices, sortedPrices);
 	    
+	}
+	
+	@When("clicks on the checkout button")
+	public void clicks_on_the_checkout_button() {
+	    click(cartPage.checkOut);
+	}
+	
+	@When("fills out the checkout overview form")
+	public void fills_out_the_checkout_overview_form() {
+	  sendText(checkOutPage.firstName,"Kaladin");
+	  sendText(checkOutPage.lastName,"Stormblessed");
+	  sendText(checkOutPage.postalCode,"1111");
+	  click(checkOutPage.continueBtn);
+	}
+	
+	
+	@When("clicks on the finish button")
+	public void clicks_on_the_finish_button() {
+		click(checkOutOverview.finish);
+	}
+	
+	@Then("we verify with Thank you for your order!")
+	public void we_verify_with_thank_you_for_your_order() {
+	    String actual = checkOutOverview.thankYou.getText();
+	    String expected = "Thank you for your order!";
+	    
+	    Assert.assertEquals(expected, actual);
 	}
 }
