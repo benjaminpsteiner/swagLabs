@@ -41,5 +41,22 @@ public class loginSteps extends CommonMethods {
 	    
 	    Assert.assertEquals(expected, actual);
 	}
+	
+	@When("the user logins with locked out credentials")
+	public void the_user_logins_with_locked_out_credentials() {
+	    sendText(loginPage.userName, "locked_out_user");
+	    sendText(loginPage.password, ConfigsReader.getProperty("password"));
+	    click(loginPage.submit);
+	    
+	}
+	
+	@Then("we verify that a locked out error occurs")
+	public void we_verify_that_a_locked_out_error_occurs() {
+	   String expected = "Epic sadface: Sorry, this user has been locked out.";
+	   String actual = loginPage.errorMessage.getText();
+	   
+	   Assert.assertEquals(expected, actual);
+		
+	}
 
 }

@@ -18,7 +18,7 @@ import io.cucumber.junit.CucumberOptions;
 		//and if all the steps there are implemented.
 		dryRun = false,
 		
-		monochrome=true, 
+		monochrome=false, 
 		
 		//I can define a tag or a combination of tags to run scenarios that have those tags
 		tags = "@smoke",
