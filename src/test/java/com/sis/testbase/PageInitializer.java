@@ -20,6 +20,7 @@ public class PageInitializer extends BaseClass {
 		cartPage = new CartPageElements();
 		checkOutPage = new CheckOutPageElements();
 		checkOutOverview = new CheckoutPageOverviewPageElements();
+		
 	}
 
 }
